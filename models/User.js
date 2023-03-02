@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-// Schema to create a course model
+
 const userSchema = new Schema(
   {
     username: {
@@ -15,22 +15,30 @@ const userSchema = new Schema(
         unique: true,
         match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
     },
-    thoughts: {
-        //TODO Array of `_id` values referencing the `Thought` model
-    },
-    friends: {
-        //TODO Array of `_id` values referencing the `User` model (self-reference)
-    }
+    thoughts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "thought"
+        }
+    ],
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "user"
+        }
+    ]
   },
   {
     toJSON: {
-      virtuals: true,
-    },
-    id: false,
-    //TODO Create a virtual called `friendCount` that retrieves the length of the user's `friends` array field on query.
+      virtuals: true
+    }
   }
 );
 
-const User = model('user', userSchema);
+userSchema.virtuals('friendCount').get( ()=> {
+    return this.friends.length;
+});
+
+const User = model("user", userSchema);
 
 module.exports = User;
