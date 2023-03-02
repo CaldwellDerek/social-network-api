@@ -7,7 +7,7 @@ router.get("/", async (request, response)=> {
         if (allUsers){
             response.status(200).json(allUsers);
         } else {
-            response.status(400).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "An error has occurred."});
         }
     } catch (error) {
         console.log(error);
@@ -17,7 +17,7 @@ router.get("/", async (request, response)=> {
 
 router.get("/:id", async (request, response)=> {
     try {
-        const user = await User.find(
+        const user = await User.findOne(
             {
                 _id: request.params.id
             }
@@ -25,7 +25,7 @@ router.get("/:id", async (request, response)=> {
         if (user){
             response.status(200).json(user);
         } else {
-            response.status(400).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "An error has occurred."});
         }
     } catch (error) {
         console.log(error);
@@ -41,7 +41,7 @@ router.post("/", async (request, response) => {
         if (newUser){
             response.status(200).json(newUser);
         } else {
-            response.status(400).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "An error has occurred."});
         }
     } catch (error) {
         console.log(error);
@@ -66,7 +66,7 @@ router.put("/:id", async (request, response)=> {
         if (updatedUser){
             response.status(200).json(updatedUser);
         } else {
-            response.status(400).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "An error has occurred."});
         }
     } catch (error) {
         console.log(error);
@@ -84,7 +84,7 @@ router.delete("/:id", async (request, response)=> {
         if (deletedUser){
             response.status(200).json(deletedUser);
         } else {
-            response.status(400).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "An error has occurred."});
         }
     } catch (error) {
         console.log(error);
