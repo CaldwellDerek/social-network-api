@@ -92,5 +92,12 @@ router.delete("/:id", async (request, response)=> {
     }
 });
 
+router.post("/:userId/friends/:friendId", (request, response)=> {
+
+});
+
+router.delete("/:userId/friends/:friendId", (request, response)=> {
+    
+});
 
 module.exports = router;
