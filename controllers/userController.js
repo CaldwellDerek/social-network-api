@@ -59,7 +59,7 @@ router.put("/:id", async (request, response)=> {
                 $set: request.body
             },
             {
-                new: true
+                runValidators: true,
             }
         );
         if (updatedUser){
