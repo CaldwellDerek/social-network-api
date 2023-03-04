@@ -39,11 +39,18 @@ router.post("/", async (request, response) => {
             request.body
         )
         if (newThought){
-            const user = await User.findOne({
-                username: request.body.username
-            });
+            console.log("finding user")
+            const user = await User.findOneAndUpdate(
+                {
+                    username: request.body.username
+                },
+                {
+                    $push: {
+                        thoughts: newThought
+                    }
+                }
+            );
             if (user){
-                user.thoughts.push(newThought);
                 response.status(200).json(newThought);
             } else {
                 response.status(404).json({msg: "An error has occurred."});

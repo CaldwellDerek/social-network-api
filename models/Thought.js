@@ -12,7 +12,7 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
         type: String,
-        default: dayjs().format("YYYY/MM/DD [at] hh:mm A")
+        default: dayjs().format("MM/DD/YYYY [at] hh:mm A")
     },
     username: {
         type: String,

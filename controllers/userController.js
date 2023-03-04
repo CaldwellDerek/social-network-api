@@ -3,7 +3,9 @@ const { User } = require("../models");
 
 router.get("/", async (request, response)=> {
     try {
-        const allUsers = await User.find();
+        const allUsers = await User.find()
+        .populate("thoughts")
+        .populate("friends");
         if (allUsers){
             response.status(200).json(allUsers);
         } else {
@@ -21,7 +23,9 @@ router.get("/:id", async (request, response)=> {
             {
                 _id: request.params.id
             }
-        );
+        )
+        .populate("thoughts")
+        .populate("friends");
         if (user){
             response.status(200).json(user);
         } else {
