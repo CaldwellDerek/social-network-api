@@ -97,7 +97,7 @@ router.delete("/:id", async (request, response)=> {
             }
         );
         if (deletedThought){
-            response.status(200).json(deletedThought);
+            response.status(200).json({msg: "The requested Thought has been deleted."});
         } else {
             response.status(404).json({msg: "An error has occurred."});
         }
@@ -106,6 +106,7 @@ router.delete("/:id", async (request, response)=> {
         response.status(500).json({msg: "An error has occurred."});
     }
 });
+
 
 router.post("/:thoughtId/reactions", async (request, response)=> {
     try {

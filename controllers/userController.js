@@ -99,7 +99,7 @@ router.post("/:userId/friends/:friendId", async (request, response)=> {
     try {
         const user = await User.findOneAndUpdate(
             {
-                _id: request.params.id
+                _id: request.params.userId
             },
             {
                 $push: {
@@ -125,7 +125,7 @@ router.delete("/:userId/friends/:friendId", async (request, response)=> {
     try {
         const user = await User.findOneAndUpdate(
             {
-                _id: request.params.id
+                _id: request.params.userId
             },
             {
                 $pull: {
