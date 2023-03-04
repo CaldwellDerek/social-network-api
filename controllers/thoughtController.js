@@ -39,7 +39,6 @@ router.post("/", async (request, response) => {
             request.body
         )
         if (newThought){
-            console.log("finding user")
             const user = await User.findOneAndUpdate(
                 {
                     username: request.body.username
@@ -110,13 +109,20 @@ router.delete("/:id", async (request, response)=> {
 
 router.post("/:thoughtId/reactions", async (request, response)=> {
     try {
-        const thought = await Thought.findOne(
+        const thought = await Thought.findOneAndUpdate(
             {
                 _id: request.params.thoughtId
+            },
+            {
+                $push: {
+                    reactions: request.body
+                }
+            },
+            {
+                new: true
             }
         )
         if (thought){
-            thought.reactions.push(request.body)
             response.status(200).json(thought);
         } else {
             response.status(404).json({msg: "An error has occurred."});
@@ -127,7 +133,7 @@ router.post("/:thoughtId/reactions", async (request, response)=> {
     }
 });
 
-router.post("/:thoughtId/reactions/:reactionId", async (request, response)=> {
+router.delete("/:thoughtId/reactions/:reactionId", async (request, response)=> {
     try {
         const thought = await Thought.findOneAndUpdate(
             {
@@ -139,6 +145,9 @@ router.post("/:thoughtId/reactions/:reactionId", async (request, response)=> {
                         _id: request.params.reactionId
                     }
                 }
+            },
+            {
+                new: true
             }
         );
         if (thought){
