@@ -11,8 +11,8 @@ const thoughtSchema = new Schema(
         maxLength: 280
     },
     createdAt: {
-        type: Date,
-        default: dayjs().format("YYYY/MM/DD - hh-mm-ss")
+        type: String,
+        default: dayjs().format("YYYY/MM/DD [at] hh:mm A")
     },
     username: {
         type: String,
@@ -29,7 +29,7 @@ const thoughtSchema = new Schema(
   }
 );
 
-thoughtSchema.virtual('friendCount').get( ()=> {
+thoughtSchema.virtual('friendCount').get( function() {
     return this.reactions.length;
 });
 

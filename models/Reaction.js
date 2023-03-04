@@ -18,8 +18,8 @@ const reactionSchema = new Schema(
         required: true
     },
     createdAt: {
-        type: Date,
-        default: dayjs().format("YYYY/MM/DD - hh-mm-ss")
+        type: String,
+        default: dayjs().format("YYYY/MM/DD [at] hh:mm A")
     }
   },
   {

@@ -36,8 +36,7 @@ router.get("/:id", async (request, response)=> {
 router.post("/", async (request, response) => {
     try {
         const newThought = await Thought.create(
-            request.body.thoughtText,
-            request.body.username
+            request.body
         )
         if (newThought){
             const user = await User.findOne({
