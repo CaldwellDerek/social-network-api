@@ -29,7 +29,7 @@ router.get("/:id", async (request, response)=> {
         if (user){
             response.status(200).json(user);
         } else {
-            response.status(404).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "No user found!"});
         }
     } catch (error) {
         console.log(error);
@@ -69,7 +69,7 @@ router.put("/:id", async (request, response)=> {
         if (updatedUser){
             response.status(200).json(updatedUser);
         } else {
-            response.status(404).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "Could not find a user by that ID."});
         }
     } catch (error) {
         console.log(error);
@@ -87,7 +87,7 @@ router.delete("/:id", async (request, response)=> {
         if (deletedUser){
             response.status(200).json(deletedUser);
         } else {
-            response.status(404).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "Could not find a user by that ID."});
         }
     } catch (error) {
         console.log(error);
@@ -139,7 +139,7 @@ router.delete("/:userId/friends/:friendId", async (request, response)=> {
         if (user){
             response.status(200).json(user);
         } else {
-            response.status(404).json({msg: "An error has occurred."});
+            response.status(404).json({msg: "Could not find a friend by that ID."});
         }
     } catch (error){
         console.log(error);
