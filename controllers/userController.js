@@ -59,7 +59,6 @@ router.put("/:id", async (request, response)=> {
                 $set: request.body
             },
             {
-                runValidators: true,
                 new: true
             }
         );
@@ -92,12 +91,56 @@ router.delete("/:id", async (request, response)=> {
     }
 });
 
-router.post("/:userId/friends/:friendId", (request, response)=> {
-
+router.post("/:userId/friends/:friendId", async (request, response)=> {
+    try {
+        const user = await User.findOneAndUpdate(
+            {
+                _id: request.params.id
+            },
+            {
+                $push: {
+                    friends: request.params.friendId
+                }
+            },
+            {
+                new: true
+            }
+        )
+        if (user){
+            response.status(200).json(user);
+        } else {
+            response.status(404).json({msg: "An error has occurred."});
+        }
+    } catch (error){
+        console.log(error);
+        response.status(500).json({msg: "An error has occurred."});
+    }
 });
 
-router.delete("/:userId/friends/:friendId", (request, response)=> {
-    
+router.delete("/:userId/friends/:friendId", async (request, response)=> {
+    try {
+        const user = await User.findOneAndUpdate(
+            {
+                _id: request.params.id
+            },
+            {
+                $pull: {
+                    friends: request.params.friendId
+                }
+            },
+            {
+                new: true
+            }
+        )
+        if (user){
+            response.status(200).json(user);
+        } else {
+            response.status(404).json({msg: "An error has occurred."});
+        }
+    } catch (error){
+        console.log(error);
+        response.status(500).json({msg: "An error has occurred."});
+    }
 });
 
 module.exports = router;
